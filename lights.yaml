@@ -1,0 +1,64 @@
+light:
+  - platform: monochromatic
+    id: light_ch1
+    name: "Ch1 Light"
+    output: dimmer_output_ch1
+    default_transition_length: 0s
+    on_turn_on:
+      - lambda: |-
+          auto cmd = esphome::modbus_controller::ModbusCommandItem::create_write_single_coil(
+            id(wb_led_1), 0, true);
+          id(wb_led_1)->queue_command(cmd);
+    on_turn_off:
+      - lambda: |-
+          auto cmd = esphome::modbus_controller::ModbusCommandItem::create_write_single_coil(
+            id(wb_led_1), 0, false);
+          id(wb_led_1)->queue_command(cmd);
+
+  - platform: monochromatic
+    id: light_ch2
+    name: "Ch2 Light"
+    output: dimmer_output_ch2
+    default_transition_length: 0s
+    on_turn_on:
+      - lambda: |-
+          auto cmd = esphome::modbus_controller::ModbusCommandItem::create_write_single_coil(
+            id(wb_led_1), 1, true);
+          id(wb_led_1)->queue_command(cmd);
+    on_turn_off:
+      - lambda: |-
+          auto cmd = esphome::modbus_controller::ModbusCommandItem::create_write_single_coil(
+            id(wb_led_1), 1, false);
+          id(wb_led_1)->queue_command(cmd);
+
+  - platform: monochromatic
+    id: light_ch3
+    name: "Ch3 Light"
+    output: dimmer_output_ch3
+    default_transition_length: 0s
+    on_turn_on:
+      - lambda: |-
+          auto cmd = esphome::modbus_controller::ModbusCommandItem::create_write_single_coil(
+            id(wb_led_1), 2, true);
+          id(wb_led_1)->queue_command(cmd);
+    on_turn_off:
+      - lambda: |-
+          auto cmd = esphome::modbus_controller::ModbusCommandItem::create_write_single_coil(
+            id(wb_led_1), 2, false);
+          id(wb_led_1)->queue_command(cmd);
+
+  - platform: monochromatic
+    id: light_ch4
+    name: "Ch4 Light"
+    output: dimmer_output_ch4
+    default_transition_length: 0s
+    on_turn_on:
+      - lambda: |-
+          auto cmd = esphome::modbus_controller::ModbusCommandItem::create_write_single_coil(
+            id(wb_led_1), 3, true);
+          id(wb_led_1)->queue_command(cmd);
+    on_turn_off:
+      - lambda: |-
+          auto cmd = esphome::modbus_controller::ModbusCommandItem::create_write_single_coil(
+            id(wb_led_1), 3, false);
+          id(wb_led_1)->queue_command(cmd);

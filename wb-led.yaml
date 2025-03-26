@@ -1,0 +1,52 @@
+esphome:
+  name: wb-led-896ddc
+  friendly_name: wb-led
+  min_version: 2024.11.0
+  name_add_mac_suffix: false
+
+esp32:
+  board: esp32dev
+  framework:
+    type: esp-idf
+
+# Enable logging
+logger:
+
+api:
+  encryption:
+    key: !secret api_key
+
+ota:
+  - platform: esphome
+    password: !secret ota_password
+
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+# Настройка UART
+uart:
+  tx_pin: GPIO17
+  rx_pin: GPIO16
+  baud_rate: 9600
+  stop_bits: 2
+
+# Настройка Modbus
+modbus:
+  id: modbus_rs_485
+  flow_control_pin: GPIO4  # DE/RE объединены на один пин
+
+modbus_controller:
+  - id: wb_led_1
+    address: 128
+    modbus_id: modbus_rs_485
+    update_interval: 750ms
+    command_throttle: 50ms
+
+packages:
+  globals: !include globals.yaml
+  sensor: !include sensors.yaml
+  binary_sensor: !include binary_sensors.yaml
+  output: !include outputs.yaml
+  light: !include lights.yaml
