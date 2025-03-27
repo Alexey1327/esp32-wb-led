@@ -1,0 +1,17 @@
+light:
+  - platform: monochromatic
+    id: light_wb1_ch1
+    name: "wb1_ch1 Light"
+    output: dimmer_output_wb1_ch1
+    default_transition_length: 0s
+    on_turn_on:
+      - lambda: |-
+          auto cmd = esphome::modbus_controller::ModbusCommandItem::create_write_single_coil(
+            id(wb1), 0, true);
+          id(wb1)->queue_command(cmd);
+    on_turn_off:
+      - lambda: |-
+          auto cmd = esphome::modbus_controller::ModbusCommandItem::create_write_single_coil(
+            id(wb1), 0, false);
+          id(wb1)->queue_command(cmd);
+

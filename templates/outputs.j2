@@ -1,0 +1,14 @@
+output:
+{% for ch in range(1, 5) %}
+  - platform: template
+    id: dimmer_output_{{ prefix }}_ch{{ ch }}
+    type: float
+    write_action:
+      - lambda: |-
+          if (!id(light_{{ prefix }}_ch{{ ch }}).current_values.is_on()) return;
+          float brightness = id(light_{{ prefix }}_ch{{ ch }}).current_values.get_brightness();
+          uint16_t value = static_cast<uint16_t>(roundf(brightness * 100.0f));
+          auto cmd = esphome::modbus_controller::ModbusCommandItem::create_write_single_command(
+            id({{ prefix }}), {{ 2000 + ch - 1 }}, value);
+          id({{ prefix }})->queue_command(cmd);
+{% endfor %}

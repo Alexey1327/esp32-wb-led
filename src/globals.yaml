@@ -1,0 +1,28 @@
+globals:
+  # Общие состояния каналов wb1
+  - id: state_wb1_ch1
+    type: bool
+    initial_value: "false"
+
+  # Яркость: последнее значение и флаг стабильности
+  - id: last_brightness_value_wb1_ch1
+    type: uint16_t
+    restore_value: no
+    initial_value: '0'
+
+  - id: brightness_stable_wb1_ch1
+    type: bool
+    restore_value: no
+    initial_value: 'false'
+
+  # Счётчики нажатий
+  - id: double_press_counter_wb1_ch1
+    type: uint16_t
+    restore_value: no
+    initial_value: '0'
+
+  - id: short_long_press_counter_wb1_ch1
+    type: uint16_t
+    restore_value: no
+    initial_value: '0'
+

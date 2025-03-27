@@ -1,0 +1,46 @@
+binary_sensor:
+{% for ch in range(1, 5) %}
+  - platform: modbus_controller
+    modbus_controller_id: {{ prefix }}
+    id: state_sens_{{ prefix }}_ch{{ ch }}
+    register_type: coil
+    address: {{ ch - 1 }}
+    bitmask: 1
+    internal: true
+    on_state:
+      then:
+        - lambda: |-
+            bool new_state = id(state_sens_{{ prefix }}_ch{{ ch }}).state;
+            if (id(state_{{ prefix }}_ch{{ ch }}) != new_state) {
+              id(state_{{ prefix }}_ch{{ ch }}) = new_state;
+              if (new_state) {
+                if (!id(light_{{ prefix }}_ch{{ ch }}).current_values.is_on()) {
+                  id(light_{{ prefix }}_ch{{ ch }}).turn_on().perform();
+                }
+              } else {
+                if (id(light_{{ prefix }}_ch{{ ch }}).current_values.is_on()) {
+                  id(light_{{ prefix }}_ch{{ ch }}).turn_off().perform();
+                }
+              }
+            }
+
+  - platform: template
+    id: double_press_event_{{ prefix }}_ch{{ ch }}
+    name: "{{ prefix }}_ch{{ ch }} Double Press"
+    internal: false
+    on_press:
+      - delay: 100ms
+      - binary_sensor.template.publish:
+          id: double_press_event_{{ prefix }}_ch{{ ch }}
+          state: false
+
+  - platform: template
+    id: short_long_press_event_{{ prefix }}_ch{{ ch }}
+    name: "{{ prefix }}_ch{{ ch }} Short+Long Press"
+    internal: false
+    on_press:
+      - delay: 100ms
+      - binary_sensor.template.publish:
+          id: short_long_press_event_{{ prefix }}_ch{{ ch }}
+          state: false
+{% endfor %}
