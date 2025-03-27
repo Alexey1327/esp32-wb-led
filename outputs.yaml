@@ -1,48 +1,13 @@
 output:
   - platform: template
-    id: dimmer_output_ch1
+    id: dimmer_output_d1_ch1
     type: float
     write_action:
       - lambda: |-
-          if (!id(light_ch1).current_values.is_on()) return;
-          float brightness = id(light_ch1).current_values.get_brightness();
+          if (!id(light_d1_ch1).current_values.is_on()) return;
+          float brightness = id(light_d1_ch1).current_values.get_brightness();
           uint16_t value = static_cast<uint16_t>(roundf(brightness * 100.0f));
           auto cmd = esphome::modbus_controller::ModbusCommandItem::create_write_single_command(
             id(wb_led_1), 2000, value);
           id(wb_led_1)->queue_command(cmd);
 
-  - platform: template
-    id: dimmer_output_ch2
-    type: float
-    write_action:
-      - lambda: |-
-          if (!id(light_ch2).current_values.is_on()) return;
-          float brightness = id(light_ch2).current_values.get_brightness();
-          uint16_t value = static_cast<uint16_t>(roundf(brightness * 100.0f));
-          auto cmd = esphome::modbus_controller::ModbusCommandItem::create_write_single_command(
-            id(wb_led_1), 2001, value);
-          id(wb_led_1)->queue_command(cmd);
-
-  - platform: template
-    id: dimmer_output_ch3
-    type: float
-    write_action:
-      - lambda: |-
-          if (!id(light_ch3).current_values.is_on()) return;
-          float brightness = id(light_ch3).current_values.get_brightness();
-          uint16_t value = static_cast<uint16_t>(roundf(brightness * 100.0f));
-          auto cmd = esphome::modbus_controller::ModbusCommandItem::create_write_single_command(
-            id(wb_led_1), 2002, value);
-          id(wb_led_1)->queue_command(cmd);
-
-  - platform: template
-    id: dimmer_output_ch4
-    type: float
-    write_action:
-      - lambda: |-
-          if (!id(light_ch4).current_values.is_on()) return;
-          float brightness = id(light_ch4).current_values.get_brightness();
-          uint16_t value = static_cast<uint16_t>(roundf(brightness * 100.0f));
-          auto cmd = esphome::modbus_controller::ModbusCommandItem::create_write_single_command(
-            id(wb_led_1), 2003, value);
-          id(wb_led_1)->queue_command(cmd);

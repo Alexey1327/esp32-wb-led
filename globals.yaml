@@ -1,99 +1,28 @@
 globals:
   # Общие состояния каналов
-  - id: channel_1_state
-    type: bool
-    initial_value: "false"
-
-  - id: channel_2_state
-    type: bool
-    initial_value: "false"
-
-  - id: channel_3_state
-    type: bool
-    initial_value: "false"
-
-  - id: channel_4_state
+  - id: state_d1_ch1
     type: bool
     initial_value: "false"
 
   # Яркость: последнее значение и флаг стабильности
-  - id: last_brightness_value_ch1
+  - id: last_brightness_value_d1_ch1
     type: uint16_t
     restore_value: no
     initial_value: '0'
 
-  - id: brightness_stable_ch1
-    type: bool
-    restore_value: no
-    initial_value: 'false'
-
-  - id: last_brightness_value_ch2
-    type: uint16_t
-    restore_value: no
-    initial_value: '0'
-
-  - id: brightness_stable_ch2
-    type: bool
-    restore_value: no
-    initial_value: 'false'
-
-  - id: last_brightness_value_ch3
-    type: uint16_t
-    restore_value: no
-    initial_value: '0'
-
-  - id: brightness_stable_ch3
-    type: bool
-    restore_value: no
-    initial_value: 'false'
-
-  - id: last_brightness_value_ch4
-    type: uint16_t
-    restore_value: no
-    initial_value: '0'
-
-  - id: brightness_stable_ch4
+  - id: brightness_stable_d1_ch1
     type: bool
     restore_value: no
     initial_value: 'false'
 
   # Счётчики нажатий
-  - id: double_press_counter_ch1
+  - id: double_press_counter_d1_ch1
     type: uint16_t
     restore_value: no
     initial_value: '0'
 
-  - id: short_long_press_counter_ch1
+  - id: short_long_press_counter_d1_ch1
     type: uint16_t
     restore_value: no
     initial_value: '0'
 
-  - id: double_press_counter_ch2
-    type: uint16_t
-    restore_value: no
-    initial_value: '0'
-
-  - id: short_long_press_counter_ch2
-    type: uint16_t
-    restore_value: no
-    initial_value: '0'
-
-  - id: double_press_counter_ch3
-    type: uint16_t
-    restore_value: no
-    initial_value: '0'
-
-  - id: short_long_press_counter_ch3
-    type: uint16_t
-    restore_value: no
-    initial_value: '0'
-
-  - id: double_press_counter_ch4
-    type: uint16_t
-    restore_value: no
-    initial_value: '0'
-
-  - id: short_long_press_counter_ch4
-    type: uint16_t
-    restore_value: no
-    initial_value: '0'
