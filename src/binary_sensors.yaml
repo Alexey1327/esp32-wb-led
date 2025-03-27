@@ -1,5 +1,5 @@
 binary_sensor:
-  # Состояния каналов
+  # Состояния каналов wb1
   - platform: modbus_controller
     modbus_controller_id: wb1
     id: state_sens_wb1_ch1

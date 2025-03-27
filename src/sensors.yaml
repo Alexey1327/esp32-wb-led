@@ -1,5 +1,5 @@
 sensor:
-  # Яркость
+  # Яркость wb1
   - platform: modbus_controller
     modbus_controller_id: wb1
     id: brightness_sensor_wb1_ch1

@@ -44,9 +44,9 @@ modbus_controller:
     update_interval: 750ms
     command_throttle: 50ms
 
-packages:
-  globals: !include globals.yaml
-  sensor: !include sensors.yaml
-  binary_sensor: !include binary_sensors.yaml
-  output: !include outputs.yaml
-  light: !include lights.yaml
+  - id: wb2
+    address: 129
+    modbus_id: modbus_rs_485
+    update_interval: 750ms
+    command_throttle: 50ms
+

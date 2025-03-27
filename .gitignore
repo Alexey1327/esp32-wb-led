@@ -1,3 +1,5 @@
-secrets.yaml
 .esphome
 .idea
+build
+esp_generated.yaml
+secrets.yaml

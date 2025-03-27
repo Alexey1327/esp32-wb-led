@@ -1,0 +1,27 @@
+globals:
+{% for ch in range(1, 5) %}
+  # {{ prefix }} Канал {{ ch }}
+  - id: state_{{ prefix }}_ch{{ ch }}
+    type: bool
+    initial_value: "false"
+
+  - id: last_brightness_value_{{ prefix }}_ch{{ ch }}
+    type: uint16_t
+    restore_value: no
+    initial_value: '0'
+
+  - id: brightness_stable_{{ prefix }}_ch{{ ch }}
+    type: bool
+    restore_value: no
+    initial_value: 'false'
+
+  - id: double_press_counter_{{ prefix }}_ch{{ ch }}
+    type: uint16_t
+    restore_value: no
+    initial_value: '0'
+
+  - id: short_long_press_counter_{{ prefix }}_ch{{ ch }}
+    type: uint16_t
+    restore_value: no
+    initial_value: '0'
+{% endfor %}

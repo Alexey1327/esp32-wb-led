@@ -1,0 +1,59 @@
+sensor:
+{% for ch in range(1, 5) %}
+  - platform: modbus_controller
+    modbus_controller_id: {{ prefix }}
+    id: brightness_sensor_{{ prefix }}_ch{{ ch }}
+    address: {{ 2000 + ch - 1 }}
+    register_type: holding
+    unit_of_measurement: "%"
+    accuracy_decimals: 0
+    internal: true
+    filters:
+      - clamp:
+          min_value: 0
+          max_value: 100
+    on_value:
+      then:
+        - lambda: |-
+            uint16_t current = (uint16_t)x;
+            if (id(last_brightness_value_{{ prefix }}_ch{{ ch }}) == current) {
+              if (!id(brightness_stable_{{ prefix }}_ch{{ ch }})) {
+                id(brightness_stable_{{ prefix }}_ch{{ ch }}) = true;
+                float brightness = current / 100.0f;
+                if (id(light_{{ prefix }}_ch{{ ch }}).current_values.get_brightness() != brightness) {
+                  id(light_{{ prefix }}_ch{{ ch }}).turn_on().set_brightness(brightness).perform();
+                }
+              }
+            } else {
+              id(last_brightness_value_{{ prefix }}_ch{{ ch }}) = current;
+              id(brightness_stable_{{ prefix }}_ch{{ ch }}) = false;
+            }
+
+  - platform: modbus_controller
+    modbus_controller_id: {{ prefix }}
+    id: double_press_sensor_{{ prefix }}_ch{{ ch }}
+    address: {{ 496 + ch - 1 }}
+    register_type: holding
+    internal: true
+    on_value:
+      then:
+        - lambda: |-
+            if ((uint16_t)x != id(double_press_counter_{{ prefix }}_ch{{ ch }})) {
+              id(double_press_counter_{{ prefix }}_ch{{ ch }}) = (uint16_t)x;
+              id(double_press_event_{{ prefix }}_ch{{ ch }}).publish_state(true);
+            }
+
+  - platform: modbus_controller
+    modbus_controller_id: {{ prefix }}
+    id: short_long_press_sensor_{{ prefix }}_ch{{ ch }}
+    address: {{ 512 + ch - 1 }}
+    register_type: holding
+    internal: true
+    on_value:
+      then:
+        - lambda: |-
+            if ((uint16_t)x != id(short_long_press_counter_{{ prefix }}_ch{{ ch }})) {
+              id(short_long_press_counter_{{ prefix }}_ch{{ ch }}) = (uint16_t)x;
+              id(short_long_press_event_{{ prefix }}_ch{{ ch }}).publish_state(true);
+            }
+{% endfor %}

@@ -1,5 +1,5 @@
 globals:
-  # Общие состояния каналов
+  # Общие состояния каналов wb1
   - id: state_wb1_ch1
     type: bool
     initial_value: "false"
