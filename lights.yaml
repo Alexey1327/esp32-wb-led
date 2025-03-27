@@ -1,8 +1,8 @@
 light:
   - platform: monochromatic
-    id: light_d1_ch1
-    name: "d1_ch1 Light"
-    output: dimmer_output_d1_ch1
+    id: light_wb1_ch1
+    name: "wb1_ch1 Light"
+    output: dimmer_output_wb1_ch1
     default_transition_length: 0s
     on_turn_on:
       - lambda: |-
