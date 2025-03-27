@@ -38,7 +38,7 @@ modbus:
   flow_control_pin: GPIO4  # DE/RE объединены на один пин
 
 modbus_controller:
-  - id: wb_led_1
+  - id: wb1
     address: 128
     modbus_id: modbus_rs_485
     update_interval: 750ms

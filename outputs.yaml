@@ -8,6 +8,6 @@ output:
           float brightness = id(light_wb1_ch1).current_values.get_brightness();
           uint16_t value = static_cast<uint16_t>(roundf(brightness * 100.0f));
           auto cmd = esphome::modbus_controller::ModbusCommandItem::create_write_single_command(
-            id(wb_led_1), 2000, value);
-          id(wb_led_1)->queue_command(cmd);
+            id(wb1), 2000, value);
+          id(wb1)->queue_command(cmd);
 
