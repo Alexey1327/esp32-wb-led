@@ -24,7 +24,7 @@ binary_sensor:
               }
             }
 
-  # События: двойное нажатие
+  # События: двойное нажатие wb1
   - platform: template
     id: double_press_event_wb1_ch1
     name: "wb1_ch1 Double Press"
@@ -35,7 +35,7 @@ binary_sensor:
           id: double_press_event_wb1_ch1
           state: false
 
-  # События: коротко + долгое нажатие
+  # События: коротко + долгое нажатие wb1
   - platform: template
     id: short_long_press_event_wb1_ch1
     name: "wb1_ch1 Short+Long Press"
