@@ -1,5 +1,5 @@
 sensor:
-  # Яркость wb1
+  # wb1 Яркость
   - platform: modbus_controller
     modbus_controller_id: wb1
     id: brightness_sensor_wb1_ch1
@@ -29,7 +29,7 @@ sensor:
               id(brightness_stable_wb1_ch1) = false;
             }
 
-  # Двойное нажатие
+  # wb1 Двойное нажатие
   - platform: modbus_controller
     modbus_controller_id: wb1
     id: double_press_sensor_wb1_ch1
@@ -44,7 +44,7 @@ sensor:
               id(double_press_event_wb1_ch1).publish_state(true);
             }
 
-  # Коротко + долгое нажатие
+  # wb1 Коротко + долгое нажатие
   - platform: modbus_controller
     modbus_controller_id: wb1
     id: short_long_press_sensor_wb1_ch1
