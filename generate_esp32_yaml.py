@@ -54,7 +54,7 @@ for prefix in prefixes:
     print(f"🔧 Генерация конфигов для {prefix}")
 
 # Затем собираем финальный esp_generated.yaml
-with open('esp_generated.yaml', 'w', encoding='utf-8') as f_out:
+with open('firmware.yaml', 'w', encoding='utf-8') as f_out:
     f_out.write(base_main + '\n')
 
     for tmpl in TEMPLATE_FILES:
