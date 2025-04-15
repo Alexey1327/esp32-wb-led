@@ -1,0 +1,86 @@
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: GPIO0
+      mode:
+        input: true
+        pullup: true
+    internal: true
+    filters:
+      - invert:
+      - delayed_on: 10ms
+      - delayed_off: 10ms
+    on_multi_click:
+      - timing:
+          - ON for at most 500ms
+          - OFF for at least 300ms
+        then:
+          - binary_sensor.template.publish:
+              id: single_click_btn
+              state: true
+
+      - timing:
+          - ON for at least 800ms
+        then:
+          - binary_sensor.template.publish:
+              id: long_click_btn
+              state: true
+
+      - timing:
+          - ON for at most 400ms
+          - OFF for at most 300ms
+          - ON for at most 400ms
+        then:
+          - binary_sensor.template.publish:
+              id: double_click_btn
+              state: true
+
+      - timing:
+          - ON for at most 500ms
+          - OFF for at most 300ms
+          - ON for at least 800ms
+        then:
+          - binary_sensor.template.publish:
+              id: short_long_click_btn
+              state: true
+
+  # Виртуальные сенсоры для HA
+  - platform: template
+    id: single_click_btn
+    name: "Single Click btn"
+    internal: false
+    on_press:
+      - delay: 100ms
+      - binary_sensor.template.publish:
+          id: single_click_btn
+          state: false
+
+  - platform: template
+    id: long_click_btn
+    name: "Long Click btn"
+    internal: false
+    on_press:
+      - delay: 100ms
+      - binary_sensor.template.publish:
+          id: long_click_btn
+          state: false
+
+  - platform: template
+    id: double_click_btn
+    name: "Double Click btn"
+    internal: false
+    on_press:
+      - delay: 100ms
+      - binary_sensor.template.publish:
+          id: double_click_btn
+          state: false
+
+  - platform: template
+    id: short_long_click_btn
+    name: "Short + Long Click btn"
+    internal: false
+    on_press:
+      - delay: 100ms
+      - binary_sensor.template.publish:
+          id: short_long_click_btn
+          state: false

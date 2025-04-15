@@ -15,6 +15,11 @@ TEMPLATE_FILES = [
     'outputs.j2',
     'lights.j2',
 ]
+
+BTN_GPIO_LIST = [0, 2, 4, 5, 12, 13, 14]
+BTN_SRC_FILE = 'binary_sensors_btn.yaml'
+BTN_TEMPLATE_FILE = 'binary_sensors_btn.j2'
+
 os.makedirs(TEMPLATE_DIR, exist_ok=True)
 
 # Генерация Jinja2 шаблонов из исходников в src/
@@ -53,6 +58,26 @@ for prefix in prefixes:
             f.write(rendered)
     print(f"🔧 Генерация конфигов для {prefix}")
 
+# Генерация шаблона кнопок
+btn_src_path = os.path.join(SRC_DIR, BTN_SRC_FILE)
+btn_template_path = os.path.join(TEMPLATE_DIR, BTN_TEMPLATE_FILE)
+with open(btn_src_path, 'r', encoding='utf-8') as f:
+    lines = f.readlines()
+header = lines[0] if lines else ''
+body = ''.join(lines[1:])
+body = body.replace('GPIO0', 'GPIO{{ gpio }}').replace('btn', '{{ btn }}')
+jinja_block = f'{header}{{% for gpio, btn in btn_list %}}\n{body}{{% endfor %}}\n'
+with open(btn_template_path, 'w', encoding='utf-8') as f:
+    f.write(jinja_block)
+
+# Генерация кнопок один раз для всех
+btn_output_path = os.path.join('build', 'binary_sensors_btn.yaml')
+rendered = render_template(BTN_TEMPLATE_FILE, {'btn_list': list(zip(BTN_GPIO_LIST, range(1, len(BTN_GPIO_LIST)+1)))})
+with open(btn_output_path, 'w', encoding='utf-8') as f:
+    f.write(rendered)
+
+print(f"🔧 Генерация кнопок готова")
+
 # Затем собираем финальный esp_generated.yaml
 with open('firmware.yaml', 'w', encoding='utf-8') as f_out:
     f_out.write(base_main + '\n')
@@ -70,5 +95,10 @@ with open('firmware.yaml', 'w', encoding='utf-8') as f_out:
                 f_out.write(''.join(lines) + '\n')
             else:
                 f_out.write(''.join(lines[1:]) + '\n')
-
+        # если это binary_sensors — вставляем кнопки после всех wbX
+        if section == 'binary_sensors':
+            with open(btn_output_path, 'r', encoding='utf-8') as f:
+                btn_lines = f.readlines()
+            # пропускаем первую строку (binary_sensor:)
+            f_out.write(''.join(btn_lines[1:]) + '\n')
 print(f"🔧 Done")
