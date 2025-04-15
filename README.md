@@ -2,15 +2,15 @@
 Modbus controller for WirenBoard WB-LED dimmer for HomeAssistant
 
 Этот проект родился после безуспешных попыток собрать wb-mqtt-serial, libwbmqtt-dev и т.п. 
-Preparing to unpack libwbmqtt-dev_1.4.2_all.deb ...
--  Package libwbmqtt0 is not installed.
--  Package libjsoncpp-dev is not installed.
-- Errors were encountered while processing:
- libwbmqtt-dev
 
 Которые, как выяснилось, в принципе невозможно собрать.
 https://support.wirenboard.com/t/nesobiraemyj-wb-mqtt-serial-i-pr/18105
 
+Preparing to unpack libwbmqtt-dev_1.4.2_all.deb ...
+-  Package libwbmqtt0 is not installed.
+-  Package libjsoncpp-dev is not installed.
+- Errors were encountered while processing:
+ libwbmqtt-dev 
 
 Вобщем, для тех, кто не хочет покупать Wiren Board за 25 касов, но хочет интегрировать диммеры WB-Led себе в HA потратив 300р на esp32 и 40р на TTL-RS485 на MAX485 конвертер то этот проект для вас 🙏
 
@@ -45,6 +45,9 @@ https://support.wirenboard.com/t/nesobiraemyj-wb-mqtt-serial-i-pr/18105
 ## ⚙️ Использование
 
 - Отредактировать список диммеров в `generate_esp32_yaml.py`:
+- Также к контроллеру можно подключать выключатели к портам GPIO, и пробрасывать события 4х типов нажатий в HA.
+BTN_GPIO_LIST = [0, 2, 4, 5, 12, 13, 14]
+это означает, что на GPIO0, GPIO2 ... будут подключены физические кнопки (например от кликовых возвратных выключателей) 
 
 ```python
 prefixes = ['wb1', 'wb2', 'wb3']
