@@ -3,7 +3,8 @@ from jinja2 import Environment, FileSystemLoader
 
 prefixes = [
     'wb1',
-    'wb2'
+    'wb2',
+    'wb3'
 ]
 
 SRC_DIR = 'src'
@@ -16,7 +17,7 @@ TEMPLATE_FILES = [
     'lights.j2',
 ]
 
-BTN_GPIO_LIST = [0, 2, 4, 5, 12, 13, 14]
+BTN_GPIO_LIST = [13,14,27,26,25,33, 32]
 BTN_SRC_FILE = 'binary_sensors_btn.yaml'
 BTN_TEMPLATE_FILE = 'binary_sensors_btn.j2'
 

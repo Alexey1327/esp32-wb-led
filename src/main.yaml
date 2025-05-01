@@ -41,12 +41,18 @@ modbus_controller:
   - id: wb1
     address: 128
     modbus_id: modbus_rs_485
-    update_interval: 750ms
+    update_interval: 1000ms
     command_throttle: 50ms
 
-#  - id: wb2
-#    address: 129
-#    modbus_id: modbus_rs_485
-#    update_interval: 750ms
-#    command_throttle: 50ms
+  - id: wb2
+    address: 129
+    modbus_id: modbus_rs_485
+    update_interval: 1000ms
+    command_throttle: 50ms
+
+  - id: wb3
+    address: 115
+    modbus_id: modbus_rs_485
+    update_interval: 1000ms
+    command_throttle: 50ms
 
