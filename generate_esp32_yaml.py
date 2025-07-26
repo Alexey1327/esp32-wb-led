@@ -107,4 +107,4 @@ with open('firmware.yaml', 'w', encoding='utf-8') as f_out:
                 btn_lines = f.readlines()
             # пропускаем первую строку (binary_sensor:)
             f_out.write(''.join(btn_lines[1:]) + '\n')
-print(f"🔧 Done")
+print(f"🔧 Done. Firmware has been written to `firmware.yaml`")

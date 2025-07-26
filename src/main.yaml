@@ -1,5 +1,5 @@
 esphome:
-  name: wb-led-896ddc
+  name: wb-led-esp32
   friendly_name: wb-led
   min_version: 2024.11.0
   name_add_mac_suffix: false
@@ -41,18 +41,18 @@ modbus_controller:
   - id: wb1
     address: 128
     modbus_id: modbus_rs_485
-    update_interval: 1000ms
-    command_throttle: 50ms
+    update_interval: 1500ms
+    command_throttle: 100ms
 
   - id: wb2
     address: 129
     modbus_id: modbus_rs_485
-    update_interval: 1000ms
-    command_throttle: 50ms
+    update_interval: 1500ms
+    command_throttle: 100ms
 
   - id: wb3
     address: 115
     modbus_id: modbus_rs_485
-    update_interval: 1000ms
-    command_throttle: 50ms
+    update_interval: 1500ms
+    command_throttle: 100ms
 
