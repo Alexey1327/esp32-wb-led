@@ -17,7 +17,7 @@ TEMPLATE_FILES = [
     'lights.j2',
 ]
 
-BTN_GPIO_LIST = [13,14,27,26,25,33, 32]
+BTN_GPIO_LIST = [13, 14, 27, 26, 25, 33, 32]
 BTN_SRC_FILE = 'binary_sensors_btn.yaml'
 BTN_TEMPLATE_FILE = 'binary_sensors_btn.j2'
 
@@ -31,8 +31,13 @@ for filename in TEMPLATE_FILES:
         lines = f.readlines()
     header = lines[0] if lines else ''
     body = ''.join(lines[1:])
-    body = body.replace('wb1', '{{ prefix }}').replace('ch1', 'ch{{ ch }}')
-    jinja_block = f'{header}{{% for ch in range(1, 5) %}}\n{body}{{% endfor %}}\n'
+    body = (body
+            .replace('wb1', '{{ prefix }}')
+            .replace('ch1', 'ch{{ ch }}')
+            .replace('reg', 'reg'))
+    jinja_block = (f'{header}{{% for ch in range(1, 5) %}}\n'
+                   f'{{% set reg = ch - 1 %}}\n'
+                   f'{body}{{% endfor %}}\n')
     with open(template_path, 'w', encoding='utf-8') as f:
         f.write(jinja_block)
 
@@ -73,7 +78,7 @@ with open(btn_template_path, 'w', encoding='utf-8') as f:
 
 # Генерация кнопок один раз для всех
 btn_output_path = os.path.join('build', 'binary_sensors_btn.yaml')
-rendered = render_template(BTN_TEMPLATE_FILE, {'btn_list': list(zip(BTN_GPIO_LIST, range(1, len(BTN_GPIO_LIST)+1)))})
+rendered = render_template(BTN_TEMPLATE_FILE, {'btn_list': list(zip(BTN_GPIO_LIST, range(1, len(BTN_GPIO_LIST) + 1)))})
 with open(btn_output_path, 'w', encoding='utf-8') as f:
     f.write(rendered)
 
