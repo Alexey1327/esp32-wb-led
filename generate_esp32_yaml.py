@@ -3,8 +3,8 @@ from jinja2 import Environment, FileSystemLoader
 
 prefixes = [
     'wb1',
-    # 'wb2',
-    # 'wb3'
+    'wb2',
+    'wb3'
 ]
 
 SRC_DIR = 'src'

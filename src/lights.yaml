@@ -4,6 +4,7 @@ light:
     name: "wb1_ch1 Light"
     output: dimmer_output_wb1_ch1
     default_transition_length: 0s
+    restore_mode: RESTORE_DEFAULT_OFF
     on_turn_on:
       - lambda: |-
           auto cmd = esphome::modbus_controller::ModbusCommandItem::create_write_single_coil(
