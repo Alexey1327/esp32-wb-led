@@ -4,7 +4,7 @@ binary_sensor:
     modbus_controller_id: wb1
     id: state_sens_wb1_ch1
     register_type: coil
-    address: 0
+    address: {{ 0 + reg }}
     bitmask: 1
     internal: true
     on_state:
