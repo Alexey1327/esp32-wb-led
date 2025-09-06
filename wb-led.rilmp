@@ -300,7 +300,7 @@
     {
       "Index": 27,
       "Address": 1140,
-      "Alias": "Время второго нажатия входа 1",
+      "Alias": "Время второго нажатия 1",
       "ReadFunction": 3,
       "RegisterType": 3,
       "Multiplier": 1.0,
@@ -427,7 +427,7 @@
   "DataBits": 8,
   "Parity": 0,
   "StopBits": 2,
-  "SlaveId": 128,
+  "SlaveId": 129,
   "Timeout": 500,
   "PollingFrequency": 1000
 }
