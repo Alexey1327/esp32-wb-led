@@ -51,7 +51,7 @@ binary_sensor:
     name: "Single Click btn"
     internal: false
     on_press:
-      - delay: 100ms
+      - delay: 200ms
       - binary_sensor.template.publish:
           id: single_click_btn
           state: false
@@ -61,7 +61,7 @@ binary_sensor:
     name: "Long Click btn"
     internal: false
     on_press:
-      - delay: 100ms
+      - delay: 200ms
       - binary_sensor.template.publish:
           id: long_click_btn
           state: false
@@ -71,7 +71,7 @@ binary_sensor:
     name: "Double Click btn"
     internal: false
     on_press:
-      - delay: 100ms
+      - delay: 200ms
       - binary_sensor.template.publish:
           id: double_click_btn
           state: false
@@ -81,7 +81,7 @@ binary_sensor:
     name: "Short + Long Click btn"
     internal: false
     on_press:
-      - delay: 100ms
+      - delay: 200ms
       - binary_sensor.template.publish:
           id: short_long_click_btn
           state: false
