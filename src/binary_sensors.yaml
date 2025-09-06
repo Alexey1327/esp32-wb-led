@@ -46,14 +46,14 @@ binary_sensor:
           id: long_press_event_wb1_ch1
           state: false
 
-  # События: коротко + долгое нажатие wb1
-  - platform: template
-    id: short_long_press_event_wb1_ch1
-    name: "wb1_ch1 Short+Long Press"
-    internal: false
-    on_press:
-      - delay: 1000ms
-      - binary_sensor.template.publish:
-          id: short_long_press_event_wb1_ch1
-          state: false
+#  # События: коротко + долгое нажатие wb1
+#  - platform: template
+#    id: short_long_press_event_wb1_ch1
+#    name: "wb1_ch1 Short+Long Press"
+#    internal: false
+#    on_press:
+#      - delay: 1000ms
+#      - binary_sensor.template.publish:
+#          id: short_long_press_event_wb1_ch1
+#          state: false
 
