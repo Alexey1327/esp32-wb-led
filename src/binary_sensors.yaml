@@ -30,19 +30,30 @@ binary_sensor:
     name: "wb1_ch1 Double Press"
     internal: false
     on_press:
-      - delay: 100ms
+      - delay: 700ms
       - binary_sensor.template.publish:
           id: double_press_event_wb1_ch1
           state: false
 
-  # События: коротко + долгое нажатие wb1
+  # События: долгое нажатие wb1
   - platform: template
-    id: short_long_press_event_wb1_ch1
-    name: "wb1_ch1 Short+Long Press"
+    id: long_press_event_wb1_ch1
+    name: "wb1_ch1 Long Press"
     internal: false
     on_press:
-      - delay: 100ms
+      - delay: 700ms
       - binary_sensor.template.publish:
-          id: short_long_press_event_wb1_ch1
+          id: long_press_event_wb1_ch1
           state: false
+
+#  # События: коротко + долгое нажатие wb1
+#  - platform: template
+#    id: short_long_press_event_wb1_ch1
+#    name: "wb1_ch1 Short+Long Press"
+#    internal: false
+#    on_press:
+#      - delay: 700ms
+#      - binary_sensor.template.publish:
+#          id: short_long_press_event_wb1_ch1
+#          state: false
 
