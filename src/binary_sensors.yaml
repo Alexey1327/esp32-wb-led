@@ -30,7 +30,7 @@ binary_sensor:
     name: "wb1_ch1 Double Press"
     internal: false
     on_press:
-      - delay: 1000ms
+      - delay: 700ms
       - binary_sensor.template.publish:
           id: double_press_event_wb1_ch1
           state: false
@@ -41,7 +41,7 @@ binary_sensor:
     name: "wb1_ch1 Long Press"
     internal: false
     on_press:
-      - delay: 1000ms
+      - delay: 700ms
       - binary_sensor.template.publish:
           id: long_press_event_wb1_ch1
           state: false
@@ -52,7 +52,7 @@ binary_sensor:
 #    name: "wb1_ch1 Short+Long Press"
 #    internal: false
 #    on_press:
-#      - delay: 1000ms
+#      - delay: 700ms
 #      - binary_sensor.template.publish:
 #          id: short_long_press_event_wb1_ch1
 #          state: false
