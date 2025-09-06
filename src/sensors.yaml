@@ -44,6 +44,22 @@ sensor:
               id(double_press_event_wb1_ch1).publish_state(true);
             }
 
+  # wb1 долгое нажатие
+  - platform: modbus_controller
+    modbus_controller_id: wb1
+    id: long_press_sensor_wb1_ch1
+    address: {{ 480 + reg }}
+    register_type: holding
+    internal: true
+    on_value:
+      then:
+        - lambda: |-
+            if ((uint16_t)x != id(long_press_counter_wb1_ch1)) {
+              id(long_press_counter_wb1_ch1) = (uint16_t)x;
+              id(long_press_event_wb1_ch1).publish_state(true);
+            }
+
+
   # wb1 Коротко + долгое нажатие
   - platform: modbus_controller
     modbus_controller_id: wb1
