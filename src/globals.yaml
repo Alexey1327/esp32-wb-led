@@ -21,6 +21,11 @@ globals:
     restore_value: no
     initial_value: '0'
 
+  - id: long_press_counter_wb1_ch1
+    type: uint16_t
+    restore_value: no
+    initial_value: '0'
+
   - id: short_long_press_counter_wb1_ch1
     type: uint16_t
     restore_value: no
