@@ -49,7 +49,6 @@ binary_sensor:
   - platform: template
     id: single_click_btn
     name: "Single Click btn"
-    internal: false
     on_press:
       - delay: 200ms
       - binary_sensor.template.publish:
@@ -59,7 +58,6 @@ binary_sensor:
   - platform: template
     id: long_click_btn
     name: "Long Click btn"
-    internal: false
     on_press:
       - delay: 200ms
       - binary_sensor.template.publish:
@@ -69,7 +67,6 @@ binary_sensor:
   - platform: template
     id: double_click_btn
     name: "Double Click btn"
-    internal: false
     on_press:
       - delay: 200ms
       - binary_sensor.template.publish:
@@ -79,7 +76,6 @@ binary_sensor:
   - platform: template
     id: short_long_click_btn
     name: "Short + Long Click btn"
-    internal: false
     on_press:
       - delay: 200ms
       - binary_sensor.template.publish:

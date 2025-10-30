@@ -15,10 +15,11 @@ TEMPLATE_FILES = [
     'binary_sensors.j2',
     'outputs.j2',
     'lights.j2',
+    # 'scripts.j2',
 ]
 
-# BTN_GPIO_LIST = []
-BTN_GPIO_LIST = [13, 14, 27, 26, 25, 33, 32]
+# BTN_GPIO_LIST = [] 25 ый убран
+BTN_GPIO_LIST = [13, 14, 27, 26, 33, 32]
 BTN_SRC_FILE = 'binary_sensors_btn.yaml'
 BTN_TEMPLATE_FILE = 'binary_sensors_btn.j2'
 
