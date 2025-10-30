@@ -15,4 +15,3 @@ light:
           auto cmd = esphome::modbus_controller::ModbusCommandItem::create_write_single_coil(
             id(wb1), {{ 0 + reg }}, false);
           id(wb1)->queue_command(cmd);
-

@@ -1,0 +1,29 @@
+script:
+  # скрипты сброса флагов для кнопок (генерация по btn)
+  - id: single_click_reset_btn
+    mode: restart
+    then:
+      - delay: ${pulse_time}
+      - lambda: |-
+          id(single_click_btn).publish_state(false);
+
+  - id: long_click_reset_btn
+    mode: restart
+    then:
+      - delay: ${pulse_time}
+      - lambda: |-
+          id(long_click_btn).publish_state(false);
+
+  - id: double_click_reset_btn
+    mode: restart
+    then:
+      - delay: ${pulse_time}
+      - lambda: |-
+          id(double_click_btn).publish_state(false);
+
+  - id: short_long_click_reset_btn
+    mode: restart
+    then:
+      - delay: ${pulse_time}
+      - lambda: |-
+          id(short_long_click_btn).publish_state(false);

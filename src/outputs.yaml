@@ -10,4 +10,3 @@ output:
           auto cmd = esphome::modbus_controller::ModbusCommandItem::create_write_single_command(
             id(wb1), {{ 2000 + reg }}, value);
           id(wb1)->queue_command(cmd);
-

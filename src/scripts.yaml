@@ -1,0 +1,22 @@
+script:
+# скрипты сброса флагов для диммеров
+  - id: double_press_event_reset_wb1_ch1
+    mode: restart
+    then:
+      - delay: ${pulse_time}
+      - lambda: |-
+          id(double_press_event_wb1_ch1).publish_state(false);
+
+  - id: long_press_event_reset_wb1_ch1
+    mode: restart
+    then:
+      - delay: ${pulse_time}
+      - lambda: |-
+          id(long_press_event_wb1_ch1).publish_state(false);
+
+#  - id: short_long_press_event_reset_wb1_ch1
+#    mode: restart
+#    then:
+#      - delay: ${pulse_time}ms
+#      - lambda: |-
+#          id(short_long_press_event_wb1_ch1).publish_state(false);

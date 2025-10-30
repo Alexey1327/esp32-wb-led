@@ -1,6 +1,7 @@
 binary_sensor:
+# --- физические кнопки ---
   - platform: gpio
-    id: GPIO0
+    id: gpio0_btn
     pin:
       number: GPIO0
       mode:
@@ -9,75 +10,67 @@ binary_sensor:
     internal: true
     filters:
       - invert:
-      - delayed_on: 10ms
-      - delayed_off: 10ms
+      - delayed_on: ${debounce_on}
+      - delayed_off: ${debounce_off}
     on_multi_click:
+      # --- одиночное нажатие ---
       - timing:
-          - ON for at most 500ms
-          - OFF for at least 300ms
+          - ON for at most ${single_max}
+          - OFF for at least ${single_off}
         then:
+          - logger.log: "Single click"
           - binary_sensor.template.publish:
               id: single_click_btn
               state: true
+          - script.execute: single_click_reset_btn
 
+      # --- длинное нажатие ---
       - timing:
-          - ON for at least 800ms
+          - ON for at least ${long_min}
         then:
+          - logger.log: "Long click"
           - binary_sensor.template.publish:
               id: long_click_btn
               state: true
+          - script.execute: long_click_reset_btn
 
+      # --- двойное нажатие ---
       - timing:
-          - ON for at most 400ms
-          - OFF for at most 300ms
-          - ON for at most 400ms
+          - ON for at most ${double_on}
+          - OFF for at most ${double_off}
+          - ON for at most ${double_on}
         then:
+          - logger.log: "Double click"
           - binary_sensor.template.publish:
               id: double_click_btn
               state: true
+          - script.execute: double_click_reset_btn
 
+      # --- короткое + длинное ---
       - timing:
-          - ON for at most 500ms
-          - OFF for at most 300ms
-          - ON for at least 800ms
+          - ON for at most ${shortlong_on}
+          - OFF for at most ${shortlong_off}
+          - ON for at least ${shortlong_long}
         then:
+          - logger.log: "Short + Long click"
           - binary_sensor.template.publish:
               id: short_long_click_btn
               state: true
+          - script.execute: short_long_click_reset_btn
 
-  # Виртуальные сенсоры для HA
+  # --- виртуальные сенсоры для HA ---
   - platform: template
     id: single_click_btn
     name: "Single Click btn"
-    on_press:
-      - delay: 200ms
-      - binary_sensor.template.publish:
-          id: single_click_btn
-          state: false
 
   - platform: template
     id: long_click_btn
     name: "Long Click btn"
-    on_press:
-      - delay: 200ms
-      - binary_sensor.template.publish:
-          id: long_click_btn
-          state: false
 
   - platform: template
     id: double_click_btn
     name: "Double Click btn"
-    on_press:
-      - delay: 200ms
-      - binary_sensor.template.publish:
-          id: double_click_btn
-          state: false
 
   - platform: template
     id: short_long_click_btn
     name: "Short + Long Click btn"
-    on_press:
-      - delay: 200ms
-      - binary_sensor.template.publish:
-          id: short_long_click_btn
-          state: false

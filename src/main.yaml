@@ -1,6 +1,21 @@
-esphome:
+substitutions:
   name: wb-led-esp32
-  friendly_name: wb-led
+  friendly_name: "wb-led"
+  pulse_time: "300ms"
+  debounce_on: "10ms"
+  debounce_off: "10ms"
+  single_max: "500ms"
+  single_off: "300ms"
+  long_min: "800ms"
+  double_on: "400ms"
+  double_off: "300ms"
+  shortlong_on: "500ms"
+  shortlong_off: "300ms"
+  shortlong_long: "800ms"
+
+esphome:
+  name: ${name}
+  friendly_name: ${friendly_name}
   min_version: 2024.11.0
   name_add_mac_suffix: false
 
@@ -55,4 +70,3 @@ modbus_controller:
     modbus_id: modbus_rs_485
     update_interval: 1500ms
     command_throttle: 100ms
-

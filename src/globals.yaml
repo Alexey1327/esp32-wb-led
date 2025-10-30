@@ -30,4 +30,3 @@ globals:
     type: uint16_t
     restore_value: no
     initial_value: '0'
-
