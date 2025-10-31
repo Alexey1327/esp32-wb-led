@@ -1,6 +1,10 @@
 substitutions:
   name: wb-led-esp32
   friendly_name: "wb-led"
+
+  update_interval: "800ms"
+  command_throttle: "60ms"
+
   pulse_time: "300ms"
   debounce_on: "10ms"
   debounce_off: "10ms"
@@ -44,7 +48,7 @@ wifi:
 uart:
   tx_pin: GPIO17
   rx_pin: GPIO16
-  baud_rate: 9600
+  baud_rate: 115200
   stop_bits: 2
 
 # Настройка Modbus
@@ -56,17 +60,17 @@ modbus_controller:
   - id: wb1
     address: 128
     modbus_id: modbus_rs_485
-    update_interval: 1500ms
-    command_throttle: 100ms
+    update_interval: ${update_interval}
+    command_throttle: ${command_throttle}
 
   - id: wb2
     address: 129
     modbus_id: modbus_rs_485
-    update_interval: 1500ms
-    command_throttle: 100ms
+    update_interval: ${update_interval}
+    command_throttle: ${command_throttle}
 
   - id: wb3
     address: 115
     modbus_id: modbus_rs_485
-    update_interval: 1500ms
-    command_throttle: 100ms
+    update_interval: ${update_interval}
+    command_throttle: ${command_throttle}
