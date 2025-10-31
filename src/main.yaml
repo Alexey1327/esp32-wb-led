@@ -2,7 +2,7 @@ substitutions:
   name: wb-led-esp32
   friendly_name: "wb-led"
 
-  baud_rate: 57600
+  baud_rate: 115200
   update_interval: "800ms"
   command_throttle: "60ms"
 
