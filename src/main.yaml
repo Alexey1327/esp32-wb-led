@@ -3,8 +3,10 @@ substitutions:
   friendly_name: "wb-led"
 
   baud_rate: 115200
-  update_interval: "800ms"
-  command_throttle: "60ms"
+  # На одном RS-485 висят три WB-LED: четыре групповых чтения на каждый.
+  # При меньшем интервале новый цикл попадает в незаконченный предыдущий.
+  update_interval: "1800ms"
+  command_throttle: "25ms"
 
   pulse_time: "300ms"
   debounce_on: "10ms"
@@ -31,7 +33,7 @@ esp32:
 
 # Enable logging
 logger:
-  level: WARN
+  level: INFO
 
 api:
   encryption:
@@ -57,6 +59,13 @@ uart:
 modbus:
   id: modbus_rs_485
   flow_control_pin: GPIO4  # DE/RE объединены на один пин
+  # При 115200 бод ответ WB-LED приходит намного быстрее. Больший таймаут
+  # блокирует общую шину и накапливает дублирующие запросы опроса.
+  send_wait_time: 500ms
+  # В ESPHome 2026.6.x значение по умолчанию стало 600 мс. Это пауза после
+  # КАЖДОГО ответа на шине, из-за неё полный опрос трёх WB-LED не укладывается
+  # в update_interval. 100 мс — прежнее значение ESPHome и достаточный запас.
+  turnaround_time: 100ms
 
 modbus_controller:
   - id: wb1
