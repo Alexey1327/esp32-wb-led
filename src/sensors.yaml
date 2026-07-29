@@ -12,6 +12,7 @@ sensor:
       - clamp:
           min_value: 0
           max_value: 100
+          ignore_out_of_range: true
     on_value:
       then:
         - lambda: |-
@@ -20,8 +21,11 @@ sensor:
               if (!id(brightness_stable_wb1_ch1)) {
                 id(brightness_stable_wb1_ch1) = true;
                 float brightness = current / 100.0f;
-                if (id(light_wb1_ch1).current_values.get_brightness() != brightness) {
+                if (id(state_initialized_wb1_ch1) && id(state_wb1_ch1) &&
+                    fabsf(id(light_wb1_ch1).current_values.get_brightness() - brightness) > 0.001f) {
+                  id(syncing_from_wb1_ch1) = true;
                   id(light_wb1_ch1).turn_on().set_brightness(brightness).perform();
+                  id(syncing_from_wb_reset_wb1_ch1).execute();
                 }
               }
             } else {
@@ -39,7 +43,10 @@ sensor:
     on_value:
       then:
         - lambda: |-
-            if ((uint16_t)x != id(double_press_counter_wb1_ch1)) {
+            if (!id(double_press_counter_initialized_wb1_ch1)) {
+              id(double_press_counter_wb1_ch1) = (uint16_t)x;
+              id(double_press_counter_initialized_wb1_ch1) = true;
+            } else if ((uint16_t)x != id(double_press_counter_wb1_ch1)) {
               id(double_press_counter_wb1_ch1) = (uint16_t)x;
               id(double_press_event_wb1_ch1).publish_state(true);
               id(double_press_event_reset_wb1_ch1).execute();
@@ -55,7 +62,10 @@ sensor:
     on_value:
       then:
         - lambda: |-
-            if ((uint16_t)x != id(long_press_counter_wb1_ch1)) {
+            if (!id(long_press_counter_initialized_wb1_ch1)) {
+              id(long_press_counter_wb1_ch1) = (uint16_t)x;
+              id(long_press_counter_initialized_wb1_ch1) = true;
+            } else if ((uint16_t)x != id(long_press_counter_wb1_ch1)) {
               id(long_press_counter_wb1_ch1) = (uint16_t)x;
               id(long_press_event_wb1_ch1).publish_state(true);
               id(long_press_event_reset_wb1_ch1).execute();
@@ -77,4 +87,3 @@ sensor:
 #              id(short_long_press_event_wb1_ch1).publish_state(true);
 #              id(short_long_press_event_reset_wb1_ch1).execute();
 #            }
-

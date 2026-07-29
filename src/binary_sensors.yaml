@@ -7,22 +7,20 @@ binary_sensor:
     address: {{ 0 + reg }}
     bitmask: 1
     internal: true
+    trigger_on_initial_state: true
     on_state:
       then:
         - lambda: |-
             bool new_state = id(state_sens_wb1_ch1).state;
-            if (id(state_wb1_ch1) != new_state) {
-              id(state_wb1_ch1) = new_state;
-              if (new_state) {
-                if (!id(light_wb1_ch1).current_values.is_on()) {
-                  id(light_wb1_ch1).turn_on().perform();
-                }
-              } else {
-                if (id(light_wb1_ch1).current_values.is_on()) {
-                  id(light_wb1_ch1).turn_off().perform();
-                }
-              }
+            id(state_wb1_ch1) = new_state;
+            id(state_initialized_wb1_ch1) = true;
+            id(syncing_from_wb1_ch1) = true;
+            if (new_state) {
+              id(light_wb1_ch1).turn_on().perform();
+            } else {
+              id(light_wb1_ch1).turn_off().perform();
             }
+            id(syncing_from_wb_reset_wb1_ch1).execute();
 
   # События: двойное нажатие wb1
   - platform: template
@@ -38,4 +36,3 @@ binary_sensor:
 #  - platform: template
 #    id: short_long_press_event_wb1_ch1
 #    name: "wb1_ch1 Short+Long Press"
-

@@ -4,14 +4,18 @@ light:
     name: "wb1_ch1 Light"
     output: dimmer_output_wb1_ch1
     default_transition_length: 0s
-    restore_mode: RESTORE_DEFAULT_OFF
+    restore_mode: ALWAYS_OFF
     on_turn_on:
       - lambda: |-
+          if (!id(state_initialized_wb1_ch1)) return;
+          if (id(syncing_from_wb1_ch1)) return;
           auto cmd = esphome::modbus_controller::ModbusCommandItem::create_write_single_coil(
             id(wb1), {{ 0 + reg }}, true);
           id(wb1)->queue_command(cmd);
     on_turn_off:
       - lambda: |-
+          if (!id(state_initialized_wb1_ch1)) return;
+          if (id(syncing_from_wb1_ch1)) return;
           auto cmd = esphome::modbus_controller::ModbusCommandItem::create_write_single_coil(
             id(wb1), {{ 0 + reg }}, false);
           id(wb1)->queue_command(cmd);

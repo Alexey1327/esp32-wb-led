@@ -1,4 +1,11 @@
 script:
+  - id: syncing_from_wb_reset_wb1_ch1
+    mode: restart
+    then:
+      - delay: 100ms
+      - lambda: |-
+          id(syncing_from_wb1_ch1) = false;
+
 # скрипты сброса флагов для диммеров
   - id: double_press_event_reset_wb1_ch1
     mode: restart
