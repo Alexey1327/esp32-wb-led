@@ -38,8 +38,20 @@ logger:
   level: INFO
 
 api:
+  id: api_id
   encryption:
     key: !secret api_key
+  # Обычный таймаут API не сработает, если зависший клиент всё ещё числится
+  # подключённым. Этот таймаут остаётся резервом для полного обрыва API.
+  reboot_timeout: 3min
+  on_client_connected:
+    - logger.log:
+        level: INFO
+        format: "API client connected"
+  on_client_disconnected:
+    - logger.log:
+        level: INFO
+        format: "API client disconnected"
 
 ota:
   - platform: esphome
@@ -87,3 +99,21 @@ modbus_controller:
     modbus_id: modbus_rs_485
     update_interval: ${update_interval}
     command_throttle: ${command_throttle}
+
+# Если ESP продолжает работать (в том числе опрашивает RS-485), но HA потерял
+# подписку на состояния, автоматически перезагружаемся вместо зависания до
+# ручного снятия питания. Лог-клиент ESPHome сам по себе не считается подпиской.
+interval:
+  - interval: 30s
+    then:
+      - lambda: |-
+          static uint8_t api_without_ha_checks = 0;
+          if (id(api_id).is_connected_with_state_subscription()) {
+            api_without_ha_checks = 0;
+            return;
+          }
+
+          if (++api_without_ha_checks >= 6) {
+            ESP_LOGE("api_watchdog", "HA state subscription absent for 3 minutes; rebooting");
+            App.reboot();
+          }
